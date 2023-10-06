@@ -1,5 +1,3 @@
-package week1.HelloGoodbye;
-
 public class HelloGoodbye {
     public static void main(String[] args) {
         if (args.length != 2) {

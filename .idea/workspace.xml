@@ -38,14 +38,17 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/oogway/Algorithms&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/oogway/Downloads/algs4(1).jar",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
-  <component name="RunManager" selected="Application.week1.HelloWorld.HelloWorld">
+}]]></component>
+  <component name="RunManager" selected="Application.week1.RandomWord.RandomWord">
     <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -61,6 +64,12 @@
       <module name="Algorithms" />
       <method v="2" />
     </configuration>
+    <configuration name="RandomWord" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="RandomWord" />
+      <module name="Algorithms" />
+      <option name="PROGRAM_PARAMETERS" value="HI" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2" />
@@ -68,12 +77,18 @@
     <configuration name="week1.HelloGoodbye.HelloGoodbye" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="week1.HelloGoodbye.HelloGoodbye" />
       <module name="Algorithms" />
-      <option name="PROGRAM_PARAMETERS" value="Hi" />
+      <option name="PROGRAM_PARAMETERS" value="Abebe Tokicho" />
       <method v="2" />
     </configuration>
     <configuration name="week1.HelloWorld.HelloWorld" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="week1.HelloWorld.HelloWorld" />
       <module name="Algorithms" />
+      <method v="2" />
+    </configuration>
+    <configuration name="week1.RandomWord.RandomWord" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="week1.RandomWord.RandomWord" />
+      <module name="Algorithms" />
+      <option name="PROGRAM_PARAMETERS" value="one two three four five" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">

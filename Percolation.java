@@ -3,38 +3,45 @@ import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    private int[][] id;
-    private int n;
+    private int dimension;
+    WeightedQuickUnionUF wqu;
 
     // creates n-by-n grid, with all sites initially blocked
-    public Percolation(int n) {
-        id = new int[n][n];
-        this.n = n;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j< n; j++) {
-                // id[i][j] = (i*n + j) + 1;
-                //initially every site is closed hence 0
-                //When a site opens, if:
-                    //one of the four neighbours is open : it becomes the child of root of the neighbour
-                    //else : it becomes its own parent
-                id[i][j] = 0;
-            }
+    public Percolation(int dimension) {
+        this.dimension = dimension;
+
+        wqu = new WeightedQuickUnionUF(dimension * dimension + 2); //the +2 is for the above and below virtual sites
+
+        int firstVirtualSite = dimension* dimension;
+        int secondVirtualSite = dimension * dimension + 1;
+
+        for (int i = 0; i < dimension; i++) {
+            wqu.union(firstVirtualSite, i); //connect all the above row sites to the first virtual site
         }
+
+        int lastElement = dimension * dimension - 1;
+        for (int i = lastElement; i > (lastElement - 4); i-- ) {
+            wqu.union(secondVirtualSite, i); //connect all the bottom row sites to the second virtual site
+        }
+
+    }
+
+    public int connected(int p) {
+        return wqu.find(p);
     }
     
-    public void showArray(){
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.println(id[i][j]);
-            }
+    // opens the site (row, col) if it is not open already
+    public void open(int row, int col){
+        
+        if (!isOpen(row-1, col-1)) {
+            
         }
     }
 
-    // opens the site (row, col) if it is not open already
-    public void open(int row, int col){}
-
     // is the site (row, col) open?
-    public boolean isOpen(int row, int col){return true;}
+    public boolean isOpen(int row, int col) {
+        return true;
+    }
 
     // is the site (row, col) full?
     public boolean isFull(int row, int col){return true;}
@@ -47,7 +54,9 @@ public class Percolation {
 
     // test client (optional)
     public static void main(String[] args){
-        Percolation pr = new Percolation(4);
-        pr.showArray();
+        Percolation perc = new Percolation(3);
+        System.out.println(perc.connected(8));
+        
+    
     }
 }

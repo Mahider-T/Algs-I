@@ -20,7 +20,7 @@ public class Percolation {
         }
 
         int lastElement = dimension * dimension - 1;
-        for (int i = lastElement; i > (lastElement - 4); i-- ) {
+        for (int i = lastElement; i > (lastElement - 3); i-- ) {
             wqu.union(secondVirtualSite, i); //connect all the bottom row sites to the second virtual site
         }
 
@@ -54,8 +54,12 @@ public class Percolation {
 
     // test client (optional)
     public static void main(String[] args){
-        Percolation perc = new Percolation(3);
-        System.out.println(perc.connected(8));
+        int n = 3;
+        Percolation perc = new Percolation(n);
+        for ( int i = 0; i < n*n + 2; i++) {
+            System.out.println(perc.connected(i));
+        }
+        
         
     
     }

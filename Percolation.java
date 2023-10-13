@@ -7,7 +7,7 @@ public class Percolation {
     WeightedQuickUnionUF wqu;
     int topVirtualSite;
     int bottomVirtualSite;
-
+    int openSitesCount = 0;
     int[] opened;
 
     // creates n-by-n grid, with all sites initially blocked
@@ -53,6 +53,7 @@ public class Percolation {
         int siteDown = (row + 1) * dimension + (col);
 
         opened[currentSite] = 1;
+        openSitesCount++;
 
       if (col != 0){
         if (wqu.find(currentSite) != wqu.find(siteToLeft) && opened[siteToLeft] == 1) {
@@ -88,7 +89,9 @@ public class Percolation {
     public boolean isFull(int row, int col){return true;}
 
     // returns the number of open sites
-    public int numberOfOpenSites(){ return 1;}
+    public int numberOfOpenSites(){ 
+      return openSitesCount;
+    }
 
     // does the system percolate?
     public boolean percolates(){ 
@@ -97,7 +100,7 @@ public class Percolation {
 
     // test client (optional)
     public static void main(String[] args){
-        int n = 3;
+        int n = 4;
         Percolation perc = new Percolation(n);
 
         for ( int i = 0; i < n*n + 2; i++) {
@@ -107,6 +110,9 @@ public class Percolation {
         perc.open(0,0);
         perc.open(1,0);
         perc.open(2,0);
+        perc.open(2,1);
+        perc.open(2,0);
+        
 
         for ( int i = 0; i < n*n + 2; i++) {
             System.out.println(perc.connected(i));

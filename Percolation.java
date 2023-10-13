@@ -111,8 +111,9 @@ public class Percolation {
         perc.open(1,0);
         perc.open(2,0);
         perc.open(2,1);
-        perc.open(2,0);
-        
+        perc.open(3,1);
+
+
 
         for ( int i = 0; i < n*n + 2; i++) {
             System.out.println(perc.connected(i));
@@ -122,6 +123,7 @@ public class Percolation {
           System.out.println(perc.opened[i]);
         }
         System.out.println(perc.percolates());
+        System.out.println(perc.numberOfOpenSites());
         
     
     }

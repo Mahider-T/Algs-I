@@ -3,15 +3,18 @@ import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    private int dimension;
+    int dimension;
     WeightedQuickUnionUF wqu;
     int topVirtualSite;
     int bottomVirtualSite;
     int openSitesCount = 0;
     int[] opened;
+    int totalNumberOfSites;
 
     // creates n-by-n grid, with all sites initially blocked
     public Percolation(int dimension) {
+
+        totalNumberOfSites = dimension * dimension;
 
         if (dimension <= 0) {
           throw new IllegalArgumentException("Argument must be a positive integer");
@@ -19,6 +22,7 @@ public class Percolation {
         this.dimension = dimension;
 
         opened = new int[dimension * dimension];
+
         for ( int i = 0; i < opened.length; i++ ) {
             opened[i] = 0; //initially all sites are closed hence 0, when opened turn to 1
         }
@@ -93,7 +97,7 @@ public class Percolation {
 
     // is the site (row, col) open?
     public boolean isOpen(int row, int col) {
-       if (row > dimension || col > dimension) {
+      if (row > dimension || col > dimension) {
         throw new IllegalArgumentException("Argument not within the valid range");
       }
       row = row -1;
@@ -103,7 +107,24 @@ public class Percolation {
     }
 
     // is the site (row, col) full?
-    public boolean isFull(int row, int col){return true;}
+    public boolean isFull(int row, int col){
+      if (row > dimension || col > dimension) {
+        throw new IllegalArgumentException("Argument not within the valid range");
+      }
+      int currentSite = (row * dimension) + col;
+
+      row = row - 1;
+      col = col -1;
+
+      boolean openTopSite = false;
+
+      for (int i = 0; i < dimension; i ++) { // if all top sites are closed no site can be full
+        if (opened[i] == 1) { openTopSite = true; }
+      }
+      if (!openTopSite) { return false; } 
+      
+      return (connected(currentSite) == topVirtualSite);
+      }    
 
     // returns the number of open sites
     public int numberOfOpenSites(){ 

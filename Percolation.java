@@ -12,6 +12,10 @@ public class Percolation {
 
     // creates n-by-n grid, with all sites initially blocked
     public Percolation(int dimension) {
+
+        if (dimension <= 0) {
+          throw new IllegalArgumentException("Argument must be a positive integer");
+        }
         this.dimension = dimension;
 
         opened = new int[dimension * dimension];
@@ -42,6 +46,13 @@ public class Percolation {
     
     // opens the site (row, col) if it is not open already
     public void open(int row, int col){
+
+      if (row > dimension || col > dimension) {
+        throw new IllegalArgumentException("Argument not within the valid range");
+      }
+
+        row = row - 1;
+        col = col -1;
 
         // int currentSite = row * col + col;
         int currentSite = (row * dimension) + col;
@@ -82,7 +93,13 @@ public class Percolation {
 
     // is the site (row, col) open?
     public boolean isOpen(int row, int col) {
-        return opened[(row * col) + col] == 1;
+       if (row > dimension || col > dimension) {
+        throw new IllegalArgumentException("Argument not within the valid range");
+      }
+      row = row -1;
+      col = col - 1;
+
+      return opened[(row * col) + col] == 1;
     }
 
     // is the site (row, col) full?
@@ -100,24 +117,22 @@ public class Percolation {
 
     // test client (optional)
     public static void main(String[] args){
-        int n = 4;
+        int n = 3;
         Percolation perc = new Percolation(n);
 
         for ( int i = 0; i < n*n + 2; i++) {
             System.out.println(perc.connected(i));
         }
 
-        perc.open(0,0);
-        perc.open(1,0);
-        perc.open(2,0);
+        perc.open(1,1);
         perc.open(2,1);
         perc.open(3,1);
 
 
-
-        for ( int i = 0; i < n*n + 2; i++) {
-            System.out.println(perc.connected(i));
-        }
+        System.out.println(n);
+        // for ( int i = 0; i < n*n + 2; i++) {
+        //     System.out.println(perc.connected(i));
+        // }
         System.out.println("_______________________________");
         for (int i = 0; i < perc.opened.length; i++) {
           System.out.println(perc.opened[i]);

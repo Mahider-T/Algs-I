@@ -108,7 +108,7 @@ public class Percolation {
       row = row - 1;
       col = col - 1;
 
-      return opened[(row * col) + col] == 1;
+      return opened[(row * dimension) + col] == 1;
     }
 
     // is the site (row, col) full?
@@ -148,19 +148,22 @@ public class Percolation {
 
     // test client (optional)
     public static void main(String[] args) {
-//        int n = 4;
-//        Percolation perc = new Percolation(n);
+        int n = 4;
+        Percolation perc = new Percolation(n);
 
 //        for ( int i = 0; i < n*n + 2; i++) {
 //            System.out.println(perc.connected(i));
 //        }
 
-//        perc.open(1,1);
-//        perc.open(2,2);
+        perc.open(1,1);
+        System.out.println(perc.isOpen(1,1));
+        perc.open(2,2);
+        System.out.println(perc.isOpen(2,2));
 //        perc.open(2,1);
 //        perc.open(2,3);
 //        perc.open(2,4);
-//        perc.open(3,4);
+        perc.open(3,4);
+        System.out.println(perc.isOpen(3,4));
 //        perc.open(4,4);
 
 //        int numberOfTimes =0;

@@ -18,18 +18,21 @@ public class PercolationStats {
         }
 
         this.T = trials;
+        percolatedAt = new double[trials];
 
         for ( int i = 0; i < trials; i++) {
-            percolatedAt = new double[trials];
             Percolation perc = new Percolation(n);
-            double numberOfOpenSites = perc.numberOfOpenSites();
+            double numberOfOpenSites;
             int dimension = perc.dimension;
             double totalNumberOfSites = perc.totalNumberOfSites;
 
             while(!perc.percolates()) {
-                perc.open(StdRandom.uniformInt(0, dimension), StdRandom.uniformInt(0, dimension));
-
+                perc.open(StdRandom.uniformInt(1, dimension + 1), StdRandom.uniformInt(1, dimension + 1));
+//                System.out.println("Open Sites for trial " + i + perc.numberOfOpenSites());
+//                System.out.println("Total number of sites " + perc.totalNumberOfSites);
             }
+            numberOfOpenSites = perc.numberOfOpenSites();
+//            System.out.println("Open " + numberOfOpenSites);
             percolatedAt[i] = numberOfOpenSites/totalNumberOfSites;
 
 
@@ -39,9 +42,11 @@ public class PercolationStats {
     }
 
     // sample mean of percolation threshold
-    public double mean() {
-        mean = StdStats.mean(percolatedAt);
-        return mean; }
+//    public double mean() {
+//        mean = StdStats.mean(percolatedAt);
+////        return mean;
+//        return 100;
+//    }
 
     // sample standard deviation of percolation threshold
     public double stddev() {
@@ -72,9 +77,13 @@ public class PercolationStats {
     }
 
     PercolationStats perst= new PercolationStats(size, trialNumber);
+    System.out.println(size + " " + trialNumber);
     System.out.println(perst.mean);
     System.out.println(perst.stddev);
     System.out.println("[" + perst.confidenceLo() + ", " + perst.confidenceHi() + "]");
+    for (int i = 0; i < perst.percolatedAt.length; i++) {
+        System.out.println(perst.percolatedAt[i]);
+    }
    }
 
 }

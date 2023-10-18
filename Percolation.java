@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
@@ -35,7 +36,7 @@ public class Percolation {
         }
 
         int lastElement = dimension * dimension - 1;
-        for (int i = lastElement; i > (lastElement - 3); i-- ) {
+        for (int i = lastElement; i > (lastElement - 4); i-- ) {
             wqu.union(bottomVirtualSite, i); //connect all the bottom row sites to the second virtual site
         }
 
@@ -45,7 +46,7 @@ public class Percolation {
     public int connected(int p) {
         return wqu.find(p);
     }
-    
+
     // opens the site (row, col) if it is not open already
     public void open(int row, int col){
 
@@ -61,36 +62,40 @@ public class Percolation {
 
         int siteToLeft = (row * dimension) + (col-1);
         int siteToRight = row * (dimension) + (col + 1);
-        
+
         int siteUp = (row - 1) * dimension + (col);
         int siteDown = (row + 1) * dimension + (col);
 
-        opened[currentSite] = 1;
-        openSitesCount++;
 
-      if (col != 0){
-        if (wqu.find(currentSite) != wqu.find(siteToLeft) && opened[siteToLeft] == 1) {
-          wqu.union(currentSite, siteToLeft);
-        }
-      }
-      
-      if (col != dimension-1) {
-        if (wqu.find(currentSite) != wqu.find(siteToRight) && opened[siteToRight] == 1) {
-          wqu.union(currentSite, siteToRight);
-        }
-      }
+        if (opened[currentSite] != 1) {
 
-      if (row != 0) {
-        if (wqu.find(currentSite) != wqu.find(siteUp) && opened[siteUp] == 1) {
-          wqu.union(currentSite, siteUp);
+            opened[currentSite] = 1;
+            openSitesCount++;
+
+            if (col != 0){
+                if (wqu.find(currentSite) != wqu.find(siteToLeft) && opened[siteToLeft] == 1) {
+                    wqu.union(currentSite, siteToLeft);
+                }
+            }
+
+            if (col != dimension - 1) {
+                if (wqu.find(currentSite) != wqu.find(siteToRight) && opened[siteToRight] == 1) {
+                    wqu.union(currentSite, siteToRight);
+                }
+            }
+
+            if (row != 0) {
+                if (wqu.find(currentSite) != wqu.find(siteUp) && opened[siteUp] == 1) {
+                    wqu.union(currentSite, siteUp);
+                }
+            }
+
+            if (row != dimension - 1) {
+                if (wqu.find(currentSite) != wqu.find(siteDown) && opened[siteDown] == 1) {
+                    wqu.union(currentSite, siteDown);
+                }
+            }
         }
-      }
-      
-      if (row != dimension-1) {
-        if (wqu.find(currentSite) != wqu.find(siteDown) && opened[siteDown] == 1) {
-          wqu.union(currentSite, siteDown);
-        }
-      }
     }
 
     // is the site (row, col) open?
@@ -109,56 +114,62 @@ public class Percolation {
       if (row > dimension || col > dimension) {
         throw new IllegalArgumentException("Argument not within the valid range");
       }
-      int currentSite = (row * dimension) + col;
-
       row = row - 1;
       col = col -1;
 
+      int currentSite = (row * dimension) + col;
       boolean openTopSite = false;
 
       for (int i = 0; i < dimension; i ++) { // if all top sites are closed no site can be full
         if (opened[i] == 1) { openTopSite = true; }
       }
-      if (!openTopSite) { return false; } 
-      
+      if (!openTopSite) { return false; }
+
       return (connected(currentSite) == topVirtualSite);
-      }    
+      }
 
     // returns the number of open sites
-    public int numberOfOpenSites(){ 
+    public int numberOfOpenSites(){
       return openSitesCount;
     }
 
     // does the system percolate?
-    public boolean percolates(){ 
+    public boolean percolates(){
       return connected(topVirtualSite) == connected(bottomVirtualSite);
     }
 
     // test client (optional)
     public static void main(String[] args){
-        int n = 3;
+        int n = 4;
         Percolation perc = new Percolation(n);
 
         for ( int i = 0; i < n*n + 2; i++) {
             System.out.println(perc.connected(i));
         }
 
-        perc.open(1,1);
-        perc.open(2,1);
-        perc.open(3,1);
+//        perc.open(1,1);
+//        perc.open(2,2);
+//        perc.open(2,1);
+//        perc.open(2,3);
+//        perc.open(2,4);
+//        perc.open(3,4);
+//        perc.open(4,4);
 
+//        int numberOfTimes =0;
+        while (!perc.percolates()) {
+            perc.open(StdRandom.uniformInt(1, perc.dimension + 1), StdRandom.uniformInt(1, perc.dimension + 1));
+//            numberOfTimes++;
+        }
+        System.out.println( "Total opened " + perc.numberOfOpenSites());
+//        System.out.println( "Number of times opened " + numberOfTimes);
 
-        System.out.println(n);
-        // for ( int i = 0; i < n*n + 2; i++) {
-        //     System.out.println(perc.connected(i));
-        // }
         System.out.println("_______________________________");
         for (int i = 0; i < perc.opened.length; i++) {
           System.out.println(perc.opened[i]);
         }
         System.out.println(perc.percolates());
         System.out.println(perc.numberOfOpenSites());
-        
-    
+
+
     }
 }

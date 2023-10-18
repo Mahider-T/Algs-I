@@ -6,9 +6,6 @@ public class PercolationStats {
     double[] percolatedAt;
     // Percolation perc;
 
-    double mean;
-    double stddev;
-
     int T;
 
     // perform independent trials on an n-by-n grid
@@ -41,26 +38,23 @@ public class PercolationStats {
 
     }
 
-    // sample mean of percolation threshold
-//    public double mean() {
-//        mean = StdStats.mean(percolatedAt);
-////        return mean;
-//        return 100;
-//    }
+//     sample mean of percolation threshold
+    public double mean() {
+        return StdStats.mean(percolatedAt);
+    }
 
     // sample standard deviation of percolation threshold
     public double stddev() {
-        stddev = StdStats.stddev(percolatedAt, 0, percolatedAt.length);
-        return stddev;
+        return StdStats.stddev(this.percolatedAt, 0, this.percolatedAt.length);
     }
 
     // low endpoint of 95% confidence interval
     public double confidenceLo() {
-        return mean - ((1.96 * stddev)/Math.sqrt(T)); }
+        return this.mean() - ((1.96 * this.stddev())/Math.sqrt(T)); }
 
     // high endpoint of 95% confidence interval
     public double confidenceHi() {
-        return mean + ((1.96 * stddev)/Math.sqrt(T));
+        return this.mean() + ((1.96 * this.stddev())/Math.sqrt(T));
      }
 
    // test client (see below)
@@ -78,12 +72,12 @@ public class PercolationStats {
 
     PercolationStats perst= new PercolationStats(size, trialNumber);
     System.out.println(size + " " + trialNumber);
-    System.out.println(perst.mean);
-    System.out.println(perst.stddev);
+    System.out.println("Mean " + perst.mean());
+    System.out.println("Stddev " + perst.stddev());
     System.out.println("[" + perst.confidenceLo() + ", " + perst.confidenceHi() + "]");
-    for (int i = 0; i < perst.percolatedAt.length; i++) {
-        System.out.println(perst.percolatedAt[i]);
-    }
+//    for (int i = 0; i < perst.percolatedAt.length; i++) {
+//        System.out.println(perst.percolatedAt[i]);
+//    }
    }
 
 }

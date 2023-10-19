@@ -105,6 +105,10 @@ public class Percolation {
       if (row > dimension || col > dimension) {
         throw new IllegalArgumentException("Argument not within the valid range");
       }
+
+      if (this.isFull(row,col)) {
+          return true;
+      }
       row = row - 1;
       col = col - 1;
 
@@ -116,12 +120,16 @@ public class Percolation {
       if (row > dimension || col > dimension) {
         throw new IllegalArgumentException("Argument not within the valid range");
       }
+      if (!this.isOpen(row, col)) { // can't be full if it is not open
+           return false;
+      }
       row = row - 1;
       col = col - 1;
 
       int currentSite = (row * dimension) + col;
-      boolean openTopSite = false;
 
+
+      boolean openTopSite = false;
       for (int i = 0; i < dimension; i++) { // if all top sites are closed no site can be full
 
         if (opened[i] == 1) {
@@ -133,7 +141,7 @@ public class Percolation {
           return false;
       }
 
-      return (connected(currentSite) == topVirtualSite);
+      return (connected(currentSite) == connected(topVirtualSite));
       }
 
     // returns the number of open sites
@@ -151,19 +159,31 @@ public class Percolation {
         int n = 4;
         Percolation perc = new Percolation(n);
 
+
+        perc.open(1,1);
+        perc.open(1,2);
+        perc.open(2,2);
+        perc.open(2,3);
+        perc.open(3,3);
+//        perc.open(3,4);
+        perc.open(4,4);
+
+        System.out.println(perc.isFull(4,4));
+
 //        for ( int i = 0; i < n*n + 2; i++) {
 //            System.out.println(perc.connected(i));
 //        }
 
-        perc.open(1,1);
-        System.out.println(perc.isOpen(1,1));
-        perc.open(2,2);
-        System.out.println(perc.isOpen(2,2));
+
+//        perc.open(1,1);
+//        System.out.println(perc.isOpen(1,1));
+//        perc.open(2,2);
+//        System.out.println(perc.isOpen(2,2));
 //        perc.open(2,1);
 //        perc.open(2,3);
 //        perc.open(2,4);
-        perc.open(3,4);
-        System.out.println(perc.isOpen(3,4));
+//        perc.open(3,4);
+//        System.out.println(perc.isOpen(3,4));
 //        perc.open(4,4);
 
 //        int numberOfTimes =0;

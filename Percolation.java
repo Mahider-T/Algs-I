@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
@@ -120,9 +121,9 @@ public class Percolation {
       if (row > dimension || col > dimension) {
         throw new IllegalArgumentException("Argument not within the valid range");
       }
-      if (!this.isOpen(row, col)) { // can't be full if it is not open
-           return false;
-      }
+//      if (!this.isOpen(row, col)) { // can't be full if it is not open
+//           return false;
+//      }
       row = row - 1;
       col = col - 1;
 
@@ -156,19 +157,19 @@ public class Percolation {
 
     // test client (optional)
     public static void main(String[] args) {
-        int n = 4;
+        int n = 10;
         Percolation perc = new Percolation(n);
 
-
-        perc.open(1,1);
-        perc.open(1,2);
-        perc.open(2,2);
-        perc.open(2,3);
-        perc.open(3,3);
+//        perc.open(1,1);
+//        perc.open(1,2);
+//        perc.open(2,2);
+//        perc.open(2,3);
+//        perc.open(3,3);
 //        perc.open(3,4);
-        perc.open(4,4);
-
-        System.out.println(perc.isFull(4,4));
+//        perc.open(4,4);
+//
+//        System.out.println(perc.isFull(4,4));
+//        System.out.println(perc.isOpen(4,4));
 
 //        for ( int i = 0; i < n*n + 2; i++) {
 //            System.out.println(perc.connected(i));
@@ -187,10 +188,18 @@ public class Percolation {
 //        perc.open(4,4);
 
 //        int numberOfTimes =0;
-//        while (!perc.percolates()) {
-//            perc.open(StdRandom.uniformInt(1, perc.dimension + 1), StdRandom.uniformInt(1, perc.dimension + 1));
+        while (!perc.percolates()) {
+            int row = StdRandom.uniformInt(1, perc.dimension + 1);
+            int col = StdRandom.uniformInt(1, perc.dimension + 1);
+            perc.open(row, col);
+            System.out.println("O: " + perc.isOpen(row,col) + " F: " + perc.isFull(row,col));
 //            numberOfTimes++;
-//        }
+        }
+        for (int i = 1; i <= perc.dimension; i++) {
+            for (int j = 1; j <= perc.dimension; j++) {
+                System.out.println("O: " + perc.isOpen(i,j) + " F: " + perc.isFull(i,j));
+            }
+        }
 //        System.out.println( "Total opened " + perc.numberOfOpenSites());
 //        System.out.println( "Number of times opened " + numberOfTimes);
 
